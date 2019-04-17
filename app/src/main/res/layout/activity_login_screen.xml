@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pin_content_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_pin"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:padding="40dp"/>
+
+    <com.mukesh.OtpView
+        android:id="@+id/otp_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:layout_gravity="center"
+        android:textColor="#363636"
+        app:itemCount="4"
+        app:itemWidth="30dp"
+        android:focusable="true"
+        app:lineColor="#969696"
+        app:viewType="line"
+        android:cursorVisible="true"
+        />
+</LinearLayout>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PayClientActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_pay"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_client_name_pay"
+                    android:layout_weight="1"
+                    android:text="Sample Name"
+                    android:padding="16dp"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingRight="12dp"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_payment_on_record"
+                        android:textSize="12sp"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:paddingBottom="2dp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:id="@+id/tv_last_paid_pay"
+                        android:text="@string/never"/>
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:padding="16dp"
+                android:background="#E6E6E6"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_information"
+                android:padding="24dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center|center_horizontal"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/lo_from"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/from"
+                        android:textAlignment="center"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/ev_from"
+                        android:ems="10"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
+                <View
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/lo_to"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/to"
+                        android:textAlignment="center"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/ev_to"
+                        android:ems="10"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="308dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/lo_product"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/product"
+                            android:id="@+id/actv_product"
+                            android:ems="10"
+                            android:completionThreshold="0"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/lo_currency"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="62dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/currency"
+                            android:text="@string/usd"
+                            android:id="@+id/actv_currency"
+                            android:ems="10"
+                            android:completionThreshold="0"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/lo_price"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="84dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/price"
+                            android:gravity="right"
+                            android:inputType="numberDecimal"
+                            android:id="@+id/ev_price"
+                            android:ems="10"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_equivalent_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="12sp"
+                    android:text="equivalent to: C$ 300"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_exchange_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="12sp"
+                    android:text="exchange rate: 32.50 C$/USD"
+                    />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="24dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_advanced_options"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+                    <TextView
+                        android:id="@+id/tv_advanced_expander"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/advanced_options"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:id="@+id/iv_expandable_arrow"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:src="@drawable/sort_down"
+                        android:tint="@android:color/tab_indicator_text"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/ell_advanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:ael_expanded="false"
+                app:ael_duration="100"
+                android:orientation="vertical"
+                android:background="#EEEEEE">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center|center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/lo_from_time"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/from_time"
+                            android:textAlignment="center"
+                            android:focusableInTouchMode="false"
+                            android:id="@+id/ev_from_time"
+                            android:ems="10"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="match_parent"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/lo_to_time"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/to_time"
+                            android:textAlignment="center"
+                            android:focusableInTouchMode="false"
+                            android:id="@+id/ev_to_time"
+                            android:ems="10"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@android:color/tertiary_text_light"
+                    android:text="@string/comment"
+                    android:textSize="18sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/border_rv"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/ev_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textMultiLine"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:layout_margin="24dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:id="@+id/bt_submit_pay"/>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+</LinearLayout>

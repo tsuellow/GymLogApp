@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.gymlogapp">
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.example.android.gymlogapp.MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.android.gymlogapp.SendReminderActivity"
+            android:label="@string/send_reminder"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.example.android.gymlogapp.CurrentClassActivity"
+            android:label="@string/current_class"
+            android:parentActivityName="com.example.android.gymlogapp.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.android.gymlogapp.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName="com.example.android.gymlogapp.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.android.gymlogapp.ClientProfileActivity"
+            android:label="@string/client_profile"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.android.gymlogapp.NewClientActivity"
+            android:label="@string/new_client"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name="com.example.android.gymlogapp.LoginScreen"
+            android:label="@string/login"
+            android:parentActivityName="com.example.android.gymlogapp.MainActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name="com.example.android.gymlogapp.PayClientActivity"
+            android:label="@string/new_payment"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity" />
+        <activity
+            android:name="com.example.android.gymlogapp.ModifyClientActivity"
+            android:label="@string/modify"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity" />
+        <activity
+            android:name="com.example.android.gymlogapp.ClientsSearchActivity"
+            android:label="@string/manual_search"
+            android:parentActivityName="com.example.android.gymlogapp.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.android.gymlogapp.SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName="com.example.android.gymlogapp.SearchActivity" />
+        <receiver
+            android:name="com.example.android.gymlogapp.BackupBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>

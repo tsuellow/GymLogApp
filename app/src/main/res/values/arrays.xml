@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="currency_values">
+        <item>usd_key</item>
+        <item>cordoba_key</item>
+    </array>
+
+    <array name="currency_labels">
+        <item>USD</item>
+        <item>C$</item>
+    </array>
+</resources>

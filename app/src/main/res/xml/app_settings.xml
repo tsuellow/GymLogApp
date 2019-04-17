@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/basic_settings">
+
+        <SwitchPreference
+            android:title="@string/use_front_camera"
+            android:defaultValue="true"
+            android:key="camera"/>
+
+        <SwitchPreference
+            android:title="@string/secure_manual_search"
+            android:defaultValue="false"
+            android:key="manualsearch"/>
+
+        <Preference
+            android:title="@string/change_pin"
+            android:defaultValue="1234"
+            android:key="changepin"
+            android:summary="@string/reset_reception_pin"/>
+
+        <Preference
+            android:title="@string/change_owner_pin"
+            android:defaultValue="1234"
+            android:key="changeownerpin"
+            android:summary="@string/reset_owner_pin"/>
+
+        <EditTextPreference
+            android:defaultValue="@string/my_gym"
+            android:key="gymname"
+            android:title="@string/gym_name"/>
+
+        <EditTextPreference
+            android:defaultValue="@string/gym_name"
+            android:key="gymowner"
+            android:title="@string/gym_owner"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/backup_setup">
+
+        <Preference
+            android:title="@string/backup_all"
+            android:key="backupall"
+            android:summary="@string/backup_all_sum"/>
+
+        <Preference
+            android:title="@string/recover_all"
+            android:key="recoverall"
+            android:summary="@string/recover_all_sum"/>
+
+        <Preference
+            android:title="@string/backup_time"
+            android:key="timebackup"
+            android:defaultValue="00:00"/>
+
+
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory
+        android:title="@string/payment_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/currency_labels"
+            android:entryValues="@array/currency_values"
+            android:summary="%s"
+            android:key="preferredcurrency"
+            android:title="@string/preferred_currency" />
+
+        <Preference
+            android:defaultValue="33"
+            android:key="usd2cs"
+            android:title="@string/exchange_rate"/>
+
+        <Preference
+            android:defaultValue="30"
+            android:key="passminus1"
+            android:title="@string/single_pass_minus1"/>
+
+        <Preference
+            android:defaultValue="30"
+            android:key="passminus2"
+            android:title="@string/single_pass_minus2"/>
+
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

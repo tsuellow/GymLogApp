@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_search"
+        android:title="@string/search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item android:id="@+id/opt_setting"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+    <item android:id="@+id/opt_reminder"
+        android:title="@string/send_reminder"
+        app:showAsAction="never" />
+    <item android:id="@+id/opt_backup"
+        android:title="@string/backup"
+        app:showAsAction="never" />
+    <item android:id="@+id/opt_csv_export"
+        android:title="@string/csv_export"
+        app:showAsAction="never" />
+
+
+</menu>

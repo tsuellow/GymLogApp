@@ -18,7 +18,8 @@
             android:id="@+id/iv_profile_image_lim"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@android:drawable/ic_menu_camera"
+            android:src="@drawable/camera"
+            android:tint="@android:color/tab_indicator_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,13 +42,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="test"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@android:color/secondary_text_dark"/>
 
             <TextView
                 android:id="@+id/tv_last_name_lim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="test" />
+                android:text="test"
+                android:textColor="@android:color/secondary_text_dark"/>
 
         </LinearLayout>
 
@@ -83,6 +86,6 @@
         android:layout_height="1dp"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:background="#E6E6E6"/>
+        android:background="@color/colorLight"/>
 </LinearLayout>
 

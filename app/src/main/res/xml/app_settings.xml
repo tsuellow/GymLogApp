@@ -32,7 +32,7 @@
             android:title="@string/gym_name"/>
 
         <EditTextPreference
-            android:defaultValue="@string/gym_name"
+            android:defaultValue="@string/fulano"
             android:key="gymowner"
             android:title="@string/gym_owner"/>
 

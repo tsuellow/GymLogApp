@@ -88,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/occupation"
-                android:focusableInTouchMode="false"
                 android:id="@+id/actv_occupation_mod"
                 android:ems="10"
                 android:completionThreshold="0"
@@ -194,7 +193,7 @@
                     android:layout_height="190dp"
                     android:layout_gravity="right"
                     android:id="@+id/iv_photo_mod"
-                    android:src="@android:drawable/ic_menu_camera"
+                    android:src="@drawable/camera"
                     />
 
 

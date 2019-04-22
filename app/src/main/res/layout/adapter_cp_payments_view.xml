@@ -131,5 +131,5 @@
         android:layout_width="match_parent"
         android:layout_height="1sp"
         android:padding="8dp"
-        android:background="#E6E6E6"/>
+        android:background="@color/colorLight"/>
 </LinearLayout>

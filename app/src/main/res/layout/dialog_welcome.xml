@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_payment_info1"
         android:text="XX"
+        android:textColor="@android:color/secondary_text_dark"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center_horizontal"

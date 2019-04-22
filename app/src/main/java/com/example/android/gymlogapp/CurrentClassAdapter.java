@@ -110,7 +110,7 @@ public class CurrentClassAdapter extends RecyclerView.Adapter<CurrentClassAdapte
             viewHolder.mProfileImage.setImageDrawable(roundedBitmapDrawable);
         }
         else{
-            viewHolder.mProfileImage.setImageResource(android.R.drawable.ic_menu_camera);
+            viewHolder.mProfileImage.setImageResource(R.drawable.camera);
         }
 
     }

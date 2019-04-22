@@ -9,7 +9,7 @@
     <string name="your_access_has_expired">al parecer tu acceso al gimnasio ha expirado.</string>
     <string name="please_pay_access">Por favor procedé a pagar en caja para renovarlo.</string>
     <string name="thanks_for_staying">Gracias por preferirnos!</string>
-    <string name="qr_code_scanner">Escaner de código QR</string>
+    <string name="qr_code_scanner">Escáner de código QR</string>
     <string name="focus_barcode">Enfocá el código de barras sobre la línea roja</string>
     <string name="manual_search">Búsqueda manual</string>
     <string name="contact_us">¿Te gusta nuestra aplicación? Contactános al correo theo.suellow@gmail.com</string>
@@ -18,7 +18,7 @@
     <string name="close">Cerrar</string>
     <string name="send_reminder">Enviar recordatorio</string>
     <string name="title_activity_search">Lista de clientes</string>
-    <string name="current_class">Clase actual</string>
+    <string name="current_class">Visitas recientes</string>
     <string name="client_profile">Perfil de cliente</string>
     <string name="new_client">Nuevo cliente</string>
     <string name="login">Login</string>
@@ -39,7 +39,7 @@
     <string name="were_synced">sincronizadas al servidor de manera exitosa</string>
     <string name="ok">OK</string>
     <string name="backup_failed">Respaldo de datos falló!</string>
-    <string name="backup_failed_explained">No se pudo establecer una conección con el servidor. Intentálo de nuevo y, si el problema persiste, chequeá que este dispositivo este conectado al Wifi y que el servidor WAMP esté activo en tu PC</string>
+    <string name="backup_failed_explained">No se pudo establecer una conección con el servidor. Intentálo de nuevo y, si el problema persiste, chequeá que este dispositivo este conectado al Wifi o contactá al proveedor.</string>
     <string name="invalid_entry">Entrada inválida</string>
     <string name="input_required">Entrada requerida</string>
     <string name="valid_phone_required">Teléfono debe ser válido</string>
@@ -59,7 +59,7 @@
     <string name="take_photo">Tomar foto</string>
     <string name="submit">Aceptar</string>
     <string name="hi">Hola</string>
-    <string name="welcome_whatsapp_qr_code">, UnityFitness te da la bienvenida! a partir de ahora podés usar este código QR para ingresar al gimnasio. Por favor recordá este *ID:</string>
+    <string name="welcome_whatsapp_qr_code">te da la bienvenida! A partir de ahora podés usar este código QR para ingresar a nuestras instalaciones. Por favor recordá este *ID:</string>
     <string name="asterisc_to_bolden_whatsapp">*</string>
     <string name="to">hasta:</string>
     <string name="from">desde:</string>
@@ -88,9 +88,6 @@
     <string name="employee">Empleado</string>
     <string name="student">Estudiante</string>
     <string name="other">Otro</string>
-    <string name="crossfit">CrossFit</string>
-    <string name="funfit">FunFit</string>
-    <string name="external">Externo</string>
     <string name="product">producto</string>
     <string name="price_usd">precio USD</string>
     <string name="payment_information">Informacion de pago</string>
@@ -147,12 +144,12 @@
     <string name="price">precio</string>
     <string name="comment">comentario</string>
     <string name="advanced_options">OPCIONES AVANZADAS</string>
-    <string name="equivalent_to">equvalente a:</string>
+    <string name="equivalent_to">suma equivalente a:</string>
     <string name="no_host_access">No hubo acceso al servidor al momento del respaldo</string>
     <string name="no_internet_at_planned_time">No hubo acceso al internet al momento del respaldo</string>
     <string name="from_time">desde: ⏲</string>
     <string name="to_time">hasta: ⏲</string>
-    <string name="exchange_rate_text">taza de cambio</string>
+    <string name="exchange_rate_text">tasa de cambio</string>
     <string name="backup_set_for">Respaldo establecido para</string>
     <string name="each_full_hour">cada hora con</string>
     <string name="minutes">minutos</string>
@@ -181,4 +178,16 @@
     <string name="data_restore_finished">Restauración de datos finalizada</string>
     <string name="data_restore_failed">Restauración de datos fallida</string>
     <string name="backup_time_toast">Respaldo automático configurado</string>
+    <string name="hi_xxxx">Hola XXXX,</string>
+    <string name="hi_xxxx_second_part">te recuerda q tu pago expira hoy. No te perdás ni un día de entrenamiento y renová tu acceso!</string>
+    <string name="week">Semana</string>
+    <string name="fortnight">Quincena</string>
+    <string name="month">Mes</string>
+    <string name="your_gym">Tu Gimnasio</string>
+    <string name="added_to_contacts">cliente fue agregado a contactos</string>
+    <string name="dob">fecha de nacimiento:</string>
+    <string name="date_of_expiration">Fecha de vencimiento de pago:</string>
+    <string name="unrecognized_code">código desconocido</string>
+    <string name="last_2_hours">en las últimas 2 horas</string>
+    <string name="fulano">Fulano de Tal</string>
 </resources>

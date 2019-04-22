@@ -107,7 +107,7 @@ public class ClientsSearchAdapter extends RecyclerView.Adapter<ClientsSearchAdap
             viewHolder.mProfileImage.setImageDrawable(roundedBitmapDrawable);
         }
         else{
-            viewHolder.mProfileImage.setImageResource(android.R.drawable.ic_menu_camera);
+            viewHolder.mProfileImage.setImageResource(R.drawable.camera);
         }
 
 

@@ -240,7 +240,7 @@ public class ClientsSearchActivity extends AppCompatActivity implements ClientsS
             if (daysLeft<4){
                 mFirstLineBottom.setTextColor(getResources().getColor(R.color.colorRed));
             }else{
-                mFirstLineBottom.setTextColor(getResources().getColor(android.R.color.tertiary_text_dark));
+                mFirstLineBottom.setTextColor(getResources().getColor(android.R.color.secondary_text_dark));
             }
         }else{
             mTopStrip.setBackgroundColor(getResources().getColor(R.color.colorRed));
@@ -281,7 +281,7 @@ public class ClientsSearchActivity extends AppCompatActivity implements ClientsS
                 }
             }
         };
-        handler.postDelayed(runnable, 2000);
+        handler.postDelayed(runnable, 3000);
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

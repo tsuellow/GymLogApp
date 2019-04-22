@@ -106,7 +106,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             viewHolder.mProfileImage.setImageDrawable(roundedBitmapDrawable);
         }
         else{
-            viewHolder.mProfileImage.setImageResource(android.R.drawable.ic_menu_camera);
+            viewHolder.mProfileImage.setImageResource(R.drawable.camera);
         }
 
         viewHolder.mOptionsMenu.setOnClickListener(new View.OnClickListener() {

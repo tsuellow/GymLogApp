@@ -2,8 +2,10 @@ package com.example.android.gymlogapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentProviderOperation;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,6 +31,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -43,6 +46,7 @@ import android.support.design.widget.TextInputLayout;
 
 import com.example.android.gymlogapp.data.ClientEntry;
 import com.example.android.gymlogapp.data.GymDatabase;
+import com.example.android.gymlogapp.utils.DateMethods;
 import com.example.android.gymlogapp.utils.PhoneUtilities;
 import com.example.android.gymlogapp.utils.QrCodeUtilities;
 
@@ -52,6 +56,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class NewClientActivity extends AppCompatActivity {
@@ -126,12 +131,11 @@ public class NewClientActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.occupation_array));
         mOccupation.setAdapter(occupationAdapter);
         mOccupation.setKeyListener(null);
-        mOccupation.setOnClickListener(new View.OnClickListener() {
+        mOccupation.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                mOccupation.setText(null);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 ((AutoCompleteTextView) view).showDropDown();
-                return;
+                return false;
             }
         });
 
@@ -157,30 +161,13 @@ public class NewClientActivity extends AppCompatActivity {
 
         mPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher("NI"));
 
-        //date picker clicklistener
-        onDateSetListener=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month=1+month;
-                String sDate=day+"/"+month+"/"+year;
-                mDob.setText(sDate);
-                try {
-                    dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
-                }catch(ParseException e){
-                    Log.d("datepicker error","date fail");
-                }
-            }
-        };
-
         mDob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog dialog=new DatePickerDialog(NewClientActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onDateSetListener,
-                        2000,00,01);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                Calendar cal=Calendar.getInstance();
+                cal.set(2000,0,1);
+                Date defaultDate=cal.getTime();
+                displayDatePickerDialog(defaultDate);
             }
         });
 
@@ -247,8 +234,34 @@ public class NewClientActivity extends AppCompatActivity {
 
         if(firstNameCorrect && lastNameCorrect && phoneCorrect && idCorrect){
             populateDb();
-            saveQrCode();
-            addContact();
+            //preparing background tasks
+            final Context context=getApplicationContext();
+
+            final String qrText="{\"obj\":\"l\",\""+MainActivity.GYM_ID+"id\":"+mId.getText().toString()+"}";
+            final File qrFile = createQrCodeFile();
+
+            final String displayName=mFirstName.getText().toString()+" "+mLastName.getText().toString()+" ID: "+mId.getText().toString();
+            final String mobileNumber=mPhone.getText().toString();
+
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    saveQrCode(qrText,qrFile,context);
+                    String contactsToast;
+                    if(addContact(displayName,mobileNumber,context)){
+                        contactsToast=getString(R.string.added_to_contacts);
+                    }else{
+                        contactsToast=getString(R.string.error_saving_contacts);
+                    }
+                    final String toast=contactsToast;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
 
             Intent i=new Intent(getApplicationContext(),SearchActivity.class);
             startActivity(i);
@@ -439,7 +452,7 @@ public class NewClientActivity extends AppCompatActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
+                        "com.example.android.fileprovider_gymlogapp",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
@@ -478,7 +491,7 @@ public class NewClientActivity extends AppCompatActivity {
             roundedBitmapDrawable.setCircular(true);
             mPhoto.setImageDrawable(roundedBitmapDrawable);
         }else{
-            mPhoto.setImageResource(android.R.drawable.ic_menu_camera);
+            mPhoto.setImageResource(R.drawable.camera);
         }
 
     }
@@ -519,16 +532,15 @@ public class NewClientActivity extends AppCompatActivity {
         }
     }
 
-    private void saveQrCode(){
-
+    private void saveQrCode(String qrText, File qrFile, Context context){
         try {
-            File qrFile = createQrCodeFile();
+
             if (qrFile.exists()){
                 qrFile.delete();
             }
             FileOutputStream qrOut = new FileOutputStream(qrFile);
-            String qrText="{\"obj\":\"l\",\""+MainActivity.GYM_ID+"id\":"+mId.getText().toString()+"}";
-            Bitmap qrCode= QrCodeUtilities.GenerateQrCode(getApplicationContext(),qrText);
+            //String qrText="{\"obj\":\"l\",\""+MainActivity.GYM_ID+"id\":"+mId.getText().toString()+"}";
+            Bitmap qrCode= QrCodeUtilities.GenerateQrCode(context,qrText);
             qrCode.compress(Bitmap.CompressFormat.JPEG, 100, qrOut);
             qrOut.flush();
             qrOut.close();
@@ -539,10 +551,9 @@ public class NewClientActivity extends AppCompatActivity {
         }
     }
 
-    private void addContact()
+    private boolean addContact(String DisplayName,String MobileNumber, Context context)
     {
-        String DisplayName=mFirstName.getText().toString()+" "+mLastName.getText().toString()+" ID: "+mId.getText().toString();
-        String MobileNumber=mPhone.getText().toString();
+
         MobileNumber = MobileNumber.replace(" ", "");
 
         ArrayList < ContentProviderOperation > ops = new ArrayList< ContentProviderOperation >();
@@ -576,17 +587,57 @@ public class NewClientActivity extends AppCompatActivity {
                             ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
                     .build());
         }
-
-
-
         // Asking the Contact provider to create a new contact
         try {
-            getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+            context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), R.string.error_saving_contacts, Toast.LENGTH_LONG).show();
             Log.d("contacts fail","Exception: " + e.getMessage());
+            return  false;
         }
+    }
+
+    private void displayDatePickerDialog(Date date){
+        AlertDialog.Builder mBuilder=new AlertDialog.Builder(NewClientActivity.this);
+        View mView=getLayoutInflater().inflate(R.layout.dialog_date_picker,null);
+        final DatePicker mDatePicker=(DatePicker) mView.findViewById(R.id.dp_date_picker);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        mDatePicker.init(year,month,day,null);
+
+        Button mOk=(Button) mView.findViewById(R.id.btn_ok_dp);
+        Button mCancel=(Button) mView.findViewById(R.id.btn_cancel_dp);
+        mBuilder.setTitle(R.string.dob);
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog=mBuilder.create();
+        //button to dismiss dialog
+        mOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal=Calendar.getInstance();
+                int year, month, day;
+                year=mDatePicker.getYear();
+                month=mDatePicker.getMonth();
+                day=mDatePicker.getDayOfMonth();
+                cal.set(year,month,day);
+                mDob.setText(DateMethods.getDateString(cal));
+                dateOfBirth=DateMethods.getRoundDate(cal.getTime());
+                dialog.dismiss();
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 

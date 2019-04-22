@@ -69,7 +69,7 @@ public class QrCodeUtilities {
             bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
             //setting bitmap to image view
 
-            Bitmap overlayBig = BitmapFactory.decodeResource(context.getResources(),R.drawable.uf_logo);
+            Bitmap overlayBig = BitmapFactory.decodeResource(context.getResources(),R.drawable.qr_image_2);
             Bitmap overlay = Bitmap.createScaledBitmap(overlayBig, 168, 168, false);
 
             return mergeBitmaps(overlay,bitmap);

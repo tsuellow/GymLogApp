@@ -1,5 +1,7 @@
 package com.example.android.gymlogapp;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -20,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.android.gymlogapp.data.ClientEntry;
 import com.example.android.gymlogapp.data.GymDatabase;
@@ -63,6 +67,8 @@ public class PayClientActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    int oldEditTextColor;
+
     //datasources
     PaymentEntry mPaymentEntry;
     ClientEntry mClientEntry;
@@ -82,8 +88,6 @@ public class PayClientActivity extends AppCompatActivity {
                 getBackToProfile();
             }
         });
-
-
 
         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -110,7 +114,7 @@ public class PayClientActivity extends AppCompatActivity {
         mComment=(EditText) findViewById(R.id.ev_comment);
 
         mProduct=(AutoCompleteTextView) findViewById(R.id.actv_product);
-        ArrayAdapter<String> prodAdapter=new ArrayAdapter<String>(PayClientActivity.this,
+        final ArrayAdapter<String> prodAdapter=new ArrayAdapter<String>(PayClientActivity.this,
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.product_array));
         mProduct.setAdapter(prodAdapter);
         mProduct.setKeyListener(null);
@@ -121,6 +125,34 @@ public class PayClientActivity extends AppCompatActivity {
                 return false;
             }
         });
+        oldEditTextColor=mTo.getCurrentTextColor();
+        mProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),adapterView.getItemAtPosition(i).toString(),Toast.LENGTH_LONG).show();
+                Calendar cal=Calendar.getInstance();
+                cal.setTime(dateFrom);
+                String selected=adapterView.getItemAtPosition(i).toString();
+                if(selected.contentEquals(getString(R.string.week))){
+                    cal.add(Calendar.DAY_OF_MONTH,6);
+                    mTo.setText(getDateString(cal));
+                }else if(selected.contentEquals(getString(R.string.fortnight))){
+                    cal.add(Calendar.DAY_OF_MONTH,14);
+                    mTo.setText(getDateString(cal));
+                }else if(selected.contentEquals(getString(R.string.month))){
+                    cal.add(Calendar.MONTH,1);
+                    cal.add(Calendar.DAY_OF_MONTH,-1);
+                    mTo.setText(getDateString(cal));
+                }else if(selected.contentEquals(getString(R.string.other))){
+                    mTo.setText(getDateString(cal));
+                }
+                dateTo=cal.getTime();
+
+                onSelectProductAnimator(mTo);
+                onSelectProductAnimator(mFrom);
+            }
+        });
+
         mCurrency=(AutoCompleteTextView) findViewById(R.id.actv_currency);
         mAltAmount=(TextView) findViewById(R.id.tv_equivalent_to);
 
@@ -201,79 +233,22 @@ public class PayClientActivity extends AppCompatActivity {
         //get client id that started the intent
         Intent i=getIntent();
         clientId=i.getExtras().getInt("CLIENT_ID");
-
         mDb=GymDatabase.getInstance(getApplicationContext());
         retrieveData(clientId);
 
 
-
-
-
-
-        onDateSetListenerFrom=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month=1+month;
-                String sDate=day+"/"+month+"/"+year;
-                mFrom.setText(sDate);
-                extra=extra+getString(R.string.from_edit);
-                try {
-                    dateFrom = new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
-                }catch(ParseException e){
-                    Log.d("datePickerFail","date fail");
-                }
-            }
-        };
-
         mFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar cal=Calendar.getInstance();
-                int year=cal.get(Calendar.YEAR);
-                int month=cal.get(Calendar.MONTH);
-                int day=cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog=new DatePickerDialog(PayClientActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onDateSetListenerFrom,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                displayDatePickerDialog(dateFrom,"from",getString(R.string.from));
             }
         });
 
-        onDateSetListenerTo=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month=1+month;
-                String sDate=day+"/"+month+"/"+year;
-                mTo.setText(sDate);
-                extra=extra+getString(R.string.to_edit);
-                try {
-                    dateTo = new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
-                }catch(ParseException e){
-                    Log.d("datePickerFail","date fail");
-                }
-            }
-        };
 
         mTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar cal=Calendar.getInstance();
-                if (dateFrom!=null){
-                    cal.setTime(dateFrom);
-                }
-                int year=cal.get(Calendar.YEAR);
-                int month=cal.get(Calendar.MONTH);
-                int day=cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog=new DatePickerDialog(PayClientActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onDateSetListenerTo,
-                        year,month+1,day-1);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                displayDatePickerDialog(dateTo,"to",getString(R.string.to));
             }
         });
 
@@ -318,6 +293,15 @@ public class PayClientActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //object select animator
+    private void onSelectProductAnimator(EditText editText){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(editText, "textColor",
+                getResources().getColor(R.color.colorAccent), oldEditTextColor);
+        colorAnim.setDuration(1000);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.start();
     }
 
     private void getBackToProfile(){
@@ -383,25 +367,17 @@ public class PayClientActivity extends AppCompatActivity {
                 payments.removeObserver(this);
                 mPaymentEntry=paymentEntry;
                 //now populate the vars
+                Calendar cal = Calendar.getInstance();
+                Date now=getDateWithoutTime();
                 if (mPaymentEntry!=null) {
                     dateLastPaidUntil = mPaymentEntry.getPaidUntil();
-                    Calendar cal = Calendar.getInstance();
                     cal.setTime(dateLastPaidUntil);
                     mDateLastPaid.setText(getDateString(cal));
-                    //mProduct.setText(mPaymentEntry.getProduct());
-
-//                if (dateLastPaidUntil.before(now))
-//                mDateLastPaid.setTextColor(Color.parseColor("#ff0000"));
-
                     //set edit texts
-                    Date now=getDateWithoutTime();
                     if (dateLastPaidUntil.before(now)){
                         cal.setTime(now);
                         mFrom.setText(getDateString(cal));
                         dateFrom=cal.getTime();
-                        //now To
-                        cal.add(Calendar.MONTH,1);
-                        cal.add(Calendar.DATE,-1);
                         mTo.setText(getDateString(cal));
                         dateTo=cal.getTime();
                     }else{
@@ -409,25 +385,15 @@ public class PayClientActivity extends AppCompatActivity {
                         cal.add(Calendar.DATE,1);
                         mFrom.setText(getDateString(cal));
                         dateFrom=cal.getTime();
-
-                        //now To
-                        cal.add(Calendar.MONTH,1);
-                        cal.add(Calendar.DATE,-1);
                         mTo.setText(getDateString(cal));
                         dateTo=cal.getTime();
                     }
 
                 }else{
                     mDateLastPaid.setText(getString(R.string.never));
-                    //mProduct.setText("CrossFit");
-                    Calendar cal = Calendar.getInstance();
-                    Date now=getDateWithoutTime();
                     cal.setTime(now);
                     mFrom.setText(getDateString(cal));
                     dateFrom=cal.getTime();
-                    //now To
-                    cal.add(Calendar.MONTH,1);
-                    cal.add(Calendar.DATE,-1);
                     mTo.setText(getDateString(cal));
                     dateTo=cal.getTime();
                 }
@@ -546,6 +512,53 @@ public class PayClientActivity extends AppCompatActivity {
                    hourTo=newHour;
                    minuteTo=newMinute;
                }
+                dialog.dismiss();
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void displayDatePickerDialog(Date date, final String objective, String title){
+        AlertDialog.Builder mBuilder=new AlertDialog.Builder(PayClientActivity.this);
+        View mView=getLayoutInflater().inflate(R.layout.dialog_date_picker,null);
+        final DatePicker mDatePicker=(DatePicker) mView.findViewById(R.id.dp_date_picker);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        mDatePicker.init(year,month,day,null);
+
+        Button mOk=(Button) mView.findViewById(R.id.btn_ok_dp);
+        Button mCancel=(Button) mView.findViewById(R.id.btn_cancel_dp);
+        mBuilder.setTitle(title);
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog=mBuilder.create();
+        //button to dismiss dialog
+        mOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal=Calendar.getInstance();
+                int year, month, day;
+                year=mDatePicker.getYear();
+                month=mDatePicker.getMonth();
+                day=mDatePicker.getDayOfMonth();
+                cal.set(year,month,day);
+                if (objective.contentEquals("from")){
+                    mFrom.setText(getDateString(cal));
+                    dateFrom=cal.getTime();
+                } else if (objective.contentEquals("to")){
+                    mTo.setText(getDateString(cal));
+                    dateTo=cal.getTime();
+                }
                 dialog.dismiss();
             }
         });

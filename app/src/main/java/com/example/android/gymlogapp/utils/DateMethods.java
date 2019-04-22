@@ -22,10 +22,7 @@ public class DateMethods {
     public static Date getCurrentClassCutoff(Date date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.add(Calendar.MINUTE, -35);
+        calendar.add(Calendar.HOUR, -2);
         return calendar.getTime();
     }
 

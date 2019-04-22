@@ -15,6 +15,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -64,6 +65,7 @@ public class ClientProfileActivity extends AppCompatActivity {
     //SearchAdapter mAdapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,8 @@ public class ClientProfileActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_client_profile);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
 
         mProfilePhoto=(ImageView) findViewById(R.id.iv_photo_profile);
         mQrCode=(ImageView) findViewById(R.id.iv_qr_icon);
@@ -226,7 +230,7 @@ public class ClientProfileActivity extends AppCompatActivity {
                     mProfilePhoto.setImageDrawable(roundedBitmapDrawable);
                 }
                 else{
-                    mProfilePhoto.setImageResource(android.R.drawable.ic_menu_camera);
+                    mProfilePhoto.setImageResource(R.drawable.camera);
                 }
 
 
@@ -266,7 +270,7 @@ public class ClientProfileActivity extends AppCompatActivity {
         sendIntent.putExtra(Intent.EXTRA_STREAM,qrUri);
         sendIntent.putExtra("jid", ""+toNumber+"@s.whatsapp.net");
         sendIntent.putExtra(Intent.EXTRA_TEXT,getString(R.string.hi)+" "+
-                firstName+getString(R.string.welcome_whatsapp_qr_code)+clientId+getString(R.string.asterisc_to_bolden_whatsapp));
+                firstName+", "+sharedPreferences.getString("gymname",getString(R.string.your_gym))+" "+getString(R.string.welcome_whatsapp_qr_code)+clientId+getString(R.string.asterisc_to_bolden_whatsapp));
         startActivity(sendIntent);
     }
 

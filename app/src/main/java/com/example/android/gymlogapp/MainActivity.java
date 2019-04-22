@@ -56,8 +56,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static final String GYM_ID="xx";
-    public static final String USER_NAME="TestGym";
+    public static final String GYM_ID="zz";
+    public static final String USER_NAME="GenericTestGym";
 
     public static final String CHANNEL_ID="111";
     private Button mManualSearch;
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity{
                 int jsonId = jObj.getInt(GYM_ID+"id");
                 retrieveClientData(jsonId);
             }catch(JSONException e){
-                Toast.makeText(getApplicationContext(), lastText, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.unrecognized_code, Toast.LENGTH_LONG).show();
             }
         }
         @Override
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity{
             if (daysLeft<4){
                 mFirstLineBottom.setTextColor(getResources().getColor(R.color.colorRed));
             }else{
-                mFirstLineBottom.setTextColor(getResources().getColor(android.R.color.tertiary_text_dark));
+                mFirstLineBottom.setTextColor(getResources().getColor(android.R.color.secondary_text_dark));
             }
         }else{
             mTopStrip.setBackgroundColor(getResources().getColor(R.color.colorRed));
@@ -396,7 +396,7 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         };
-        handler.postDelayed(runnable, 2000);
+        handler.postDelayed(runnable, 3000);
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

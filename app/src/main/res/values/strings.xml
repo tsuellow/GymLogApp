@@ -25,14 +25,14 @@
     <string name="other">Other</string>
 
     <string-array name="product_array">
-        <item>@string/crossfit</item>
-        <item>@string/funfit</item>
-        <item>@string/external</item>
+        <item>@string/week</item>
+        <item>@string/fortnight</item>
+        <item>@string/month</item>
         <item>@string/other</item>
     </string-array>
-    <string name="crossfit">CrossFit</string>
-    <string name="funfit">FunFit</string>
-    <string name="external">External</string>
+    <string name="week">Week</string>
+    <string name="fortnight">Fortnight</string>
+    <string name="month">Month</string>
 
     <string-array name="currency_array">
         <item>@string/usd</item>
@@ -61,7 +61,7 @@
     <!--manifest strings-->
     <string name="send_reminder">Send reminder</string>
     <string name="title_activity_search">Clients overview</string>
-    <string name="current_class">Current class</string>
+    <string name="current_class">Recent visits</string>
     <string name="client_profile">Client profile</string>
     <string name="new_client">New client</string>
     <string name="login">Login</string>
@@ -111,7 +111,7 @@
 
     <!--client profile-->
     <string name="hi">Hi</string>
-    <string name="welcome_whatsapp_qr_code">, Welcome to Unity Fitness! From now on you can use this QR code to badge in with us. Your identifier is *ID:</string>
+    <string name="welcome_whatsapp_qr_code">"welcomes you to the gym! From now on you can use this QR code to badge in with us. Your identifier is *ID: "</string>
     <string name="asterisc_to_bolden_whatsapp">*</string>
     <string name="to">to:</string>
     <string name="from">from:</string>
@@ -189,7 +189,7 @@
     <string name="advanced_options">ADVANCED OPTIONS</string>
     <string name="equivalent_to">equivalent to:</string>
     <string name="no_host_access">No host access</string>
-    <string name="no_internet_at_planned_time">No internet connection was available at planed backup time</string>
+    <string name="no_internet_at_planned_time">No internet connection was available at planned backup time</string>
     <string name="from_time">from: ⏲</string>
     <string name="to_time">to: ⏲</string>
     <string name="exchange_rate_text">exchange rate:</string>
@@ -221,6 +221,15 @@
     <string name="data_restore_finished">Data restore finished</string>
     <string name="data_restore_failed">Data restore failed</string>
     <string name="backup_time_toast">Automatic backup is set</string>
+    <string name="hi_xxxx">Hi XXXX!</string>
+    <string name="hi_xxxx_second_part">reminds you that your access is expiring today. Don\'t miss out and renew your access</string>
+    <string name="your_gym">Your Gym</string>
+    <string name="added_to_contacts">Client added to contacts</string>
+    <string name="dob">date of birth:</string>
+    <string name="date_of_expiration">Date of expiration:</string>
+    <string name="unrecognized_code">unrecognized code</string>
+    <string name="last_2_hours">in the last 2 hours</string>
+    <string name="fulano">Fulano de Tal</string>
 
 
 </resources>

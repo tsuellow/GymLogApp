@@ -110,7 +110,7 @@ public class SendReminderAdapter extends RecyclerView.Adapter<SendReminderAdapte
             viewHolder.mProfileImage.setImageDrawable(roundedBitmapDrawable);
         }
         else{
-            viewHolder.mProfileImage.setImageResource(android.R.drawable.ic_menu_camera);
+            viewHolder.mProfileImage.setImageResource(R.drawable.camera);
         }
 
     }

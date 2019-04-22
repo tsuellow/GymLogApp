@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberPassword"
         android:layout_gravity="center"
-        android:textColor="#363636"
+        android:textColor="@android:color/secondary_text_dark"
         app:itemCount="4"
         app:itemWidth="30dp"
         android:focusable="true"

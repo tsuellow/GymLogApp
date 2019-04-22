@@ -51,6 +51,7 @@ public class CurrentClassActivity extends AppCompatActivity implements CurrentCl
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         mContext = getApplicationContext();
         rvClients = (RecyclerView) findViewById(R.id.rv_current_class_activity);
         mAdapter = new CurrentClassAdapter(mContext, this);
@@ -71,15 +72,15 @@ public class CurrentClassActivity extends AppCompatActivity implements CurrentCl
         String str = s + "%";
 
         Date date= DateMethods.getCurrentClassCutoff(new Date());
-        Date classTime= DateMethods.getRoundedHour(new Date());
-        final String fullHour=new SimpleDateFormat("h:mm a").format(classTime);
+        //Date classTime= DateMethods.getRoundedHour(new Date());
+        //final String twoHHAgo=new SimpleDateFormat("h:mm a").format(date);
 
         final LiveData<List<ClientVisitJoin>> clients = mDb.clientDao().getCurrentClass(date,str);
         clients.observe(this, new Observer<List<ClientVisitJoin>>() {
             @Override
             public void onChanged(@Nullable List<ClientVisitJoin> clientEntries) {
                 mAdapter.setClients(clientEntries);
-                mToolbar.setSubtitle(mAdapter.getItemCount()+" "+getString(R.string.participants)+"   "+fullHour);
+                mToolbar.setSubtitle(mAdapter.getItemCount()+" "+getString(R.string.visits)+" "+getString(R.string.last_2_hours));
 
             }
         });

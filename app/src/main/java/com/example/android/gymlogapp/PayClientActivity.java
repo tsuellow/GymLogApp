@@ -129,7 +129,7 @@ public class PayClientActivity extends AppCompatActivity {
         mProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),adapterView.getItemAtPosition(i).toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),adapterView.getItemAtPosition(i).toString(),Toast.LENGTH_LONG).show();
                 Calendar cal=Calendar.getInstance();
                 cal.setTime(dateFrom);
                 String selected=adapterView.getItemAtPosition(i).toString();

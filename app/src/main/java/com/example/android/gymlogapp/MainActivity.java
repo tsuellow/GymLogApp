@@ -1,5 +1,7 @@
 package com.example.android.gymlogapp;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,13 +13,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +34,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.android.gymlogapp.data.ClientEntry;
@@ -68,6 +75,12 @@ public class MainActivity extends AppCompatActivity{
     private ClientEntry mClientData;
     private PaymentEntry mPaymentData;
     private Toolbar mToolbar;
+    private ImageView mFlashLight;
+    private ConstraintLayout mTopBar;
+    private LinearLayout mBottomBar;
+    private int mBarColor, mTextColor;
+    private TextView mOrientation;
+    private boolean mIsAnimated;
 
     SharedPreferences sharedPreferences;
 
@@ -95,6 +108,35 @@ public class MainActivity extends AppCompatActivity{
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //set multiple vars
+        mOrientation=(TextView) findViewById(R.id.tv_orientation);
+        mFlashLight=(ImageView) findViewById(R.id.iv_flash_light);
+        mTopBar=(ConstraintLayout) findViewById(R.id.cl_main_top);
+        mBottomBar=(LinearLayout) findViewById(R.id.ll_main_bottom);
+        mBarColor=mBottomBar.getSolidColor();
+        mTextColor=mOrientation.getCurrentTextColor();
+        mIsAnimated=false;
+        mFlashLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mIsAnimated) {
+                    mIsAnimated=true;
+                    mOrientation.setTextColor(Color.parseColor("#757575"));
+                    mTopBar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                    mBottomBar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                    //dalay change to normal by 3 seconds
+                    Handler handler = new Handler();
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            flashLightAnimation();
+                            mIsAnimated=false;
+                        }
+                    };
+                    handler.postDelayed(runnable, 3000);
+                }
+            }
+        });
+
         mManualSearch =(Button) findViewById(R.id.bt_search);
 
         mContext=getApplicationContext();
@@ -127,8 +169,25 @@ public class MainActivity extends AppCompatActivity{
         });
 
         createNotificationChannel();
+    }
 
-
+    //flashlight method
+    private void flashLightAnimation(){
+        ObjectAnimator colorAnimTop = ObjectAnimator.ofInt(mTopBar, "backgroundColor",
+                getResources().getColor(R.color.colorWhite), mBarColor);
+        colorAnimTop.setDuration(1000);
+        colorAnimTop.setEvaluator(new ArgbEvaluator());
+        colorAnimTop.start();
+        ObjectAnimator colorAnimBottom = ObjectAnimator.ofInt(mBottomBar, "backgroundColor",
+                getResources().getColor(R.color.colorWhite), mBarColor);
+        colorAnimBottom.setDuration(1000);
+        colorAnimBottom.setEvaluator(new ArgbEvaluator());
+        colorAnimBottom.start();
+        ObjectAnimator colorAnimText = ObjectAnimator.ofInt(mOrientation, "textColor",
+                Color.parseColor("#757575"), mTextColor);
+        colorAnimText.setDuration(1000);
+        colorAnimText.setEvaluator(new ArgbEvaluator());
+        colorAnimText.start();
     }
 
 
@@ -440,7 +499,7 @@ public class MainActivity extends AppCompatActivity{
             roundedBitmapDrawable.setCircular(true);
             imageView.setImageDrawable(roundedBitmapDrawable);
         } else {
-            imageView.setImageResource(android.R.drawable.ic_menu_camera);
+            imageView.setImageResource(R.drawable.camera);
         }
     }
 

@@ -326,7 +326,7 @@ public class ClientsSearchActivity extends AppCompatActivity implements ClientsS
             roundedBitmapDrawable.setCircular(true);
             imageView.setImageDrawable(roundedBitmapDrawable);
         }else{
-            imageView.setImageResource(android.R.drawable.ic_menu_camera);
+            imageView.setImageResource(R.drawable.camera);
         }
     }
 }

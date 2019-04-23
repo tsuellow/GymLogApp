@@ -12,7 +12,7 @@
     <string name="qr_code_scanner">Escáner de código QR</string>
     <string name="focus_barcode">Enfocá el código de barras sobre la línea roja</string>
     <string name="manual_search">Búsqueda manual</string>
-    <string name="contact_us">¿Te gusta nuestra aplicación? Contactános al correo theo.suellow@gmail.com</string>
+    <string name="contact_us">"¿Te gustó nuestra App? Contactános "</string>
     <string name="admin">Admin</string>
     <string name="clients">clientes</string>
     <string name="close">Cerrar</string>

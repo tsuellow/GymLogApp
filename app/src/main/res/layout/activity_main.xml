@@ -56,23 +56,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:id="@+id/cl_main_top"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_orientation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_horizontal"
                 android:text="@string/qr_code_scanner"
-                android:id="@+id/orientation"
-                android:layout_gravity="center"
-                android:padding="8dp"
                 android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                />
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="38dp"
+                android:id="@+id/iv_flash_light"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/flash_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,7 +107,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-
+            android:id="@+id/ll_main_bottom"
             android:orientation="vertical">
 
             <Button
@@ -107,16 +121,39 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/zxing_barcode_scanner"
                 />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/contact_us"
-                android:layout_gravity="bottom"
-                android:textColor="@color/colorLight"
-                android:textSize="8sp"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="4dp"/>
+                android:orientation="horizontal"
+                android:gravity="bottom">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"
+                    android:layout_gravity="bottom"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:textSize="10sp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="4dp"/>
+                <ImageView
+                    android:layout_width="11sp"
+                    android:layout_height="11sp"
+                    android:layout_gravity="top"
+                    android:src="@drawable/whatsapp_icon_black"
+                    android:tint="@android:color/tab_indicator_text"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="8778 6917"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 
